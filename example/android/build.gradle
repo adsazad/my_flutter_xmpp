@@ -1,12 +1,11 @@
 buildscript {
     repositories {
-        mavenCentral()
         google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:4.0.0'
     }
 }
 
@@ -14,9 +13,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {
-            url "https://igniterealtime.org/repo/"
-        }
     }
 }
 

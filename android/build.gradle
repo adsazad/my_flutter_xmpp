@@ -1,5 +1,5 @@
-group 'com.adsazad.xmpp.flutter_xmpp'
-version '1.0-SNAPSHOT'
+group 'com.elex.flutter_xmpp'
+version '1.0'
 
 buildscript {
     repositories {
@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.5.0'
     }
 }
 
@@ -26,13 +26,11 @@ android {
 
     defaultConfig {
         minSdkVersion 16
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         disable 'InvalidPackage'
     }
 }
-
 ext {
     smackVersion = '4.2.4'
 }
@@ -42,7 +40,6 @@ configurations {
 }
 
 dependencies {
-
     implementation "org.igniterealtime.smack:smack-tcp:$smackVersion"
     implementation "org.igniterealtime.smack:smack-experimental:$smackVersion"
     implementation "org.igniterealtime.smack:smack-android:$smackVersion"
@@ -50,6 +47,3 @@ dependencies {
     implementation "org.igniterealtime.smack:smack-extensions:$smackVersion"
     implementation 'com.android.support:support-annotations:28.0.0'
 }
-
-
-

@@ -1,11 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:async';
-import 'package:my_flutter_xmpp/my_flutter_xmpp.dart';
 
-void main() => runApp(MyApp());
+import 'package:flutter/services.dart';
+import 'package:flutter_xmpp/flutter_xmpp.dart';
+
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -13,89 +14,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String rerceiveMessageFrom = '';
-  String rerceiveMessageBody = '';
-
-  FlutterXmpp flutterXmpp;
+  String _status = '未连接';
 
   @override
   void initState() {
     super.initState();
-    initXmpp();
-  }
-
-  @override
-  void dispose() async {
-    await flutterXmpp.stop();
-    super.dispose();
-  }
-
-  Future<void> initXmpp() async {
-    var auth = {
-      "user_jid": "22637@0.0.0.0/Android",
-      "password": "22637",
-      "host": "0.0.0.0",
-      "port": 5222
-    };
-    flutterXmpp = new FlutterXmpp(auth);
-
-    // login
-    await flutterXmpp.login();
-
-    // start listening receive message
-    await flutterXmpp.start(_onReceiveMessage, _onError);
-
-    sleep(const Duration(seconds: 2)); // just sample wait for get current state
-
-    print(await flutterXmpp.currentState()); // get current state
-
-    // sending Message
-    await flutterXmpp.sendMessage(
-        "1@0.0.0.0", "test", "random_id_for_sync_with_sqlite");
-
-    // read Message
-    await flutterXmpp.readMessage(
-        "1@0.0.0.0", "random_id_for_sync_with_sqlite");
-
-    // life cycle, if app not active, kill stream get incoming message ..
-    lifeCycle();
-
-    // logout
-    await flutterXmpp.logout();
-  }
-
-  void lifeCycle() async {
-    SystemChannels.lifecycle.setMessageHandler((msg) async {
-      if (msg == "AppLifecycleState.inactive" ||
-          msg == "AppLifecycleState.suspending") {
-        await flutterXmpp.stop();
-      } else if (msg == "AppLifecycleState.resumed") {
-        await flutterXmpp.start(_onReceiveMessage, _onError);
-      }
-      print('SystemChannels> $msg');
-      return "Lifecycle";
-    });
-  }
-
-  void _onReceiveMessage(dynamic event) {
-    print(event);
-    if (event["type"] == "incoming") {
-      setState(() {
-        rerceiveMessageFrom = event['from'];
-        rerceiveMessageBody = event['body'];
-        rerceiveMessageBody = event['id']; // chat ID
-      });
-    } else {
-      setState(() {
-        rerceiveMessageFrom = event['to'];
-        rerceiveMessageBody = event['body'];
-        rerceiveMessageBody = event['id']; // chat ID
-      });
-    }
-  }
-
-  void _onError(Object error) {
-    print(error);
+    FlutterXmpp.init("192.168.0.127", "5222");
+    FlutterXmpp.addListener(
+        onConnect: (event){
+          setState(() {
+            _status = event["message"];
+          });
+        },
+        onReceiveMessage: (event){
+          print(event);
+        },
+        onLogin: (event){
+          print(event);
+        },
+        onRegister: (event){
+          print(event);
+        }
+    );
   }
 
   @override
@@ -103,13 +43,60 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('FlutterXMPP'),
+          title: const Text('xmpp'),
         ),
-        body: Center(
-          child: Text(
-              'Incoming or Outgoinng Message: \n$rerceiveMessageFrom\n$rerceiveMessageBody'),
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("当前状态：${_status}"),
+                RaisedButton(
+                  child: Text("断开连接"),
+                  onPressed: (){
+                    FlutterXmpp.disconnect();
+                  },
+                ),
+                RaisedButton(
+                  child: Text("注册"),
+                  onPressed: (){
+                    register();
+                  },
+                ),
+                RaisedButton(
+                  child: Text("登录"),
+                  onPressed: (){
+                    login();
+                  },
+                ),
+                RaisedButton(
+                  child: Text("发送消息"),
+                  onPressed: (){
+                    sendMessage();
+                  },
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
+  }
+
+
+
+  login(){
+     FlutterXmpp.login("elex", "123456");
+
+  }
+
+  register() {
+     FlutterXmpp.register("elex1", "123456");
+  }
+
+  sendMessage() {
+    FlutterXmpp.send(body: "我是flutter", to: "test",type: "text",args: {"duration":"1111"});
   }
 }
