@@ -1,4 +1,4 @@
-package com.adsazad.xmpp.flutter_xmpp;
+package com.adsazad.xmpp.my_flutter_xmpp;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -36,7 +36,7 @@ import java.util.List;
 
 public class FlutterXmppConnection implements ConnectionListener {
 
-    private static final String TAG ="flutter_xmpp";
+    private static final String TAG ="my_flutter_xmpp";
 
     private Context mApplicationContext;
     private String mUsername;

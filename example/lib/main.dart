@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import 'package:flutter_xmpp/flutter_xmpp.dart';
+import 'package:my_flutter_xmpp/my_flutter_xmpp.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,19 +24,18 @@ class _MyAppState extends State<MyApp> {
     initXmpp();
   }
 
-
   @override
-  void dispose() async{
+  void dispose() async {
     await flutterXmpp.stop();
     super.dispose();
   }
 
-  Future<void> initXmpp() async{
+  Future<void> initXmpp() async {
     var auth = {
       "user_jid": "22637@0.0.0.0/Android",
-      "password":"22637",
-      "host":"0.0.0.0",
-      "port":5222
+      "password": "22637",
+      "host": "0.0.0.0",
+      "port": 5222
     };
     flutterXmpp = new FlutterXmpp(auth);
 
@@ -44,33 +43,33 @@ class _MyAppState extends State<MyApp> {
     await flutterXmpp.login();
 
     // start listening receive message
-    await flutterXmpp.start(_onReceiveMessage,_onError);
+    await flutterXmpp.start(_onReceiveMessage, _onError);
 
-    sleep(const Duration(seconds:2)); // just sample wait for get current state
+    sleep(const Duration(seconds: 2)); // just sample wait for get current state
 
     print(await flutterXmpp.currentState()); // get current state
 
     // sending Message
-    await flutterXmpp.sendMessage("1@0.0.0.0","test","random_id_for_sync_with_sqlite");
-
+    await flutterXmpp.sendMessage(
+        "1@0.0.0.0", "test", "random_id_for_sync_with_sqlite");
 
     // read Message
-    await flutterXmpp.readMessage("1@0.0.0.0","random_id_for_sync_with_sqlite");
-
+    await flutterXmpp.readMessage(
+        "1@0.0.0.0", "random_id_for_sync_with_sqlite");
 
     // life cycle, if app not active, kill stream get incoming message ..
     lifeCycle();
 
     // logout
     await flutterXmpp.logout();
-
   }
 
-  void lifeCycle() async{
-    SystemChannels.lifecycle.setMessageHandler((msg) async{
-      if(msg == "AppLifecycleState.inactive" || msg == "AppLifecycleState.suspending" ){
+  void lifeCycle() async {
+    SystemChannels.lifecycle.setMessageHandler((msg) async {
+      if (msg == "AppLifecycleState.inactive" ||
+          msg == "AppLifecycleState.suspending") {
         await flutterXmpp.stop();
-      }else if(msg == "AppLifecycleState.resumed"){
+      } else if (msg == "AppLifecycleState.resumed") {
         await flutterXmpp.start(_onReceiveMessage, _onError);
       }
       print('SystemChannels> $msg');
@@ -80,7 +79,7 @@ class _MyAppState extends State<MyApp> {
 
   void _onReceiveMessage(dynamic event) {
     print(event);
-    if(event["type"] == "incoming") {
+    if (event["type"] == "incoming") {
       setState(() {
         rerceiveMessageFrom = event['from'];
         rerceiveMessageBody = event['body'];
@@ -107,7 +106,8 @@ class _MyAppState extends State<MyApp> {
           title: const Text('FlutterXMPP'),
         ),
         body: Center(
-          child: Text('Incoming or Outgoinng Message: \n$rerceiveMessageFrom\n$rerceiveMessageBody'),
+          child: Text(
+              'Incoming or Outgoinng Message: \n$rerceiveMessageFrom\n$rerceiveMessageBody'),
         ),
       ),
     );

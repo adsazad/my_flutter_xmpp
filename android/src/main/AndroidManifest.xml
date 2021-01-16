@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.adsazad.xmpp.flutter_xmpp">
+  package="com.adsazad.xmpp.my_flutter_xmpp">
 
 
     <uses-permission android:name="android.permission.INTERNET"/>

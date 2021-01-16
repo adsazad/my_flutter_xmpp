@@ -1,4 +1,4 @@
-package com.adsazad.xmpp.flutter_xmpp;
+package com.adsazad.xmpp.my_flutter_xmpp;
 
 import android.app.Service;
 import android.content.Intent;
@@ -16,25 +16,25 @@ import java.util.ArrayList;
 
 public class FlutterXmppConnectionService extends Service {
 
-    private static final String TAG ="flutter_xmpp";
+    private static final String TAG ="my_flutter_xmpp";
 
-    public static final String UI_AUTHENTICATED = "com.aldiferdiyan.xmpp.flutter_xmpp.uiauthenticated";
-    public static final String READ_MESSAGE = "com.aldiferdiyan.xmpp.flutter_xmpp.readmessage";
-    public static final String SEND_MESSAGE = "com.aldiferdiyan.xmpp.flutter_xmpp.sendmessage";
+    public static final String UI_AUTHENTICATED = "com.adsazad.xmpp.my_flutter_xmpp.uiauthenticated";
+    public static final String READ_MESSAGE = "com.adsazad.xmpp.my_flutter_xmpp.readmessage";
+    public static final String SEND_MESSAGE = "com.adsazad.xmpp.my_flutter_xmpp.sendmessage";
     public static final String BUNDLE_MESSAGE_BODY = "b_body";
     public static final String BUNDLE_MESSAGE_PARAMS = "b_body_params";
     public static final String BUNDLE_TO = "b_to";
 
-    public static final String OUTGOING_MESSAGE = "com.aldiferdiyan.xmpp.flutter_xmpp.outgoinmessage";
+    public static final String OUTGOING_MESSAGE = "com.adsazad.xmpp.my_flutter_xmpp.outgoinmessage";
     public static final String BUNDLE_TO_JID = "c_from";
 
-    public static final String GROUP_SEND_MESSAGE = "com.aldiferdiyan.xmpp.flutter_xmpp.sendGroupMessage";
+    public static final String GROUP_SEND_MESSAGE = "com.adsazad.xmpp.my_flutter_xmpp.sendGroupMessage";
     public static final String GROUP_MESSAGE_BODY = "group_body";
     public static final String GROUP_MESSAGE_PARAMS = "group_body_params";
     public static final String GROUP_TO = "group_to";
 
 
-    public static final String RECEIVE_MESSAGE = "com.aldiferdiyan.xmpp.flutter_xmpp.receivemessage";
+    public static final String RECEIVE_MESSAGE = "com.adsazad.xmpp.my_flutter_xmpp.receivemessage";
     public static final String BUNDLE_FROM_JID = "b_from";
 
     public static FlutterXmppConnection.ConnectionState sConnectionState;

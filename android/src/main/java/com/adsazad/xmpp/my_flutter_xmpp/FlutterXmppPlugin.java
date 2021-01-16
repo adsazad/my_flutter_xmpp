@@ -1,4 +1,4 @@
-package com.adsazad.xmpp.flutter_xmpp;
+package com.adsazad.xmpp.my_flutter_xmpp;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -20,12 +20,12 @@ import io.flutter.plugin.common.MethodChannel.Result;
 
 public class FlutterXmppPlugin extends FlutterActivity implements MethodCallHandler, EventChannel.StreamHandler {
 
-    private static final String TAG = "flutter_xmpp";
+    private static final String TAG = "my_flutter_xmpp";
     public static final Boolean DEBUG = false;
 
 
-    private static final String CHANNEL = "flutter_xmpp/method";
-    private static final String CHANNEL_STREAM = "flutter_xmpp/stream";
+    private static final String CHANNEL = "my_flutter_xmpp/method";
+    private static final String CHANNEL_STREAM = "my_flutter_xmpp/stream";
 
     private static Activity activity;
 
