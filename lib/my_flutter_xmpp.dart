@@ -4,9 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class FlutterXmpp {
-  static const MethodChannel _channel =
-      const MethodChannel('flutter_xmpp');
-
+  static const MethodChannel _channel = const MethodChannel('flutter_xmpp');
 
   /**
    * 初始化xmpp数据
@@ -14,12 +12,12 @@ class FlutterXmpp {
    * port:端口
    * domin:服务器域名
    */
-  static Future<Map> init(String hostName,String port,{String domin}) async {
+  static Future<Map> init(String hostName, String port, {String domin}) async {
     Map map = Map();
     map["hostName"] = hostName;
     map["port"] = port;
     map["domin"] = domin;
-    final Map result = await _channel.invokeMethod('init',map);
+    final Map result = await _channel.invokeMethod('init', map);
     return result;
   }
 
@@ -28,11 +26,11 @@ class FlutterXmpp {
    * userName:用户名
    * password:密码
    */
-  static Future<Map> login(String userName,String password) async{
+  static Future<Map> login(String userName, String password) async {
     Map map = Map();
     map["userName"] = userName;
     map["password"] = password;
-    final Map result = await _channel.invokeMethod('login',map);
+    final Map result = await _channel.invokeMethod('login', map);
     return result;
   }
 
@@ -41,18 +39,18 @@ class FlutterXmpp {
    * userName:用户名
    * password:密码
    */
-  static Future<Map> register(String userName,String password) async{
+  static Future<Map> register(String userName, String password) async {
     Map map = Map();
     map["userName"] = userName;
     map["password"] = password;
-    final Map result = await _channel.invokeMethod('register',map);
+    final Map result = await _channel.invokeMethod('register', map);
     return result;
   }
 
   /**
    * 断开连接
    */
-  static void disconnect(){
+  static void disconnect() {
     _channel.invokeMethod('disconnect');
   }
 
@@ -63,13 +61,17 @@ class FlutterXmpp {
    * to:接受者
    * args:扩展参数
    */
-  static Future<Map> send({String type="text",@required String body,@required String to,Map args}) async{
+  static Future<Map> send(
+      {String type = "text",
+      @required String body,
+      @required String to,
+      Map args}) async {
     Map map = Map();
     map["messageType"] = type;
     map["body"] = body;
     map["to"] = to;
     map["args"] = args;
-    final Map result = await _channel.invokeMethod('send',map);
+    final Map result = await _channel.invokeMethod('send', map);
     return result;
   }
 
@@ -80,21 +82,23 @@ class FlutterXmpp {
    * onRegister：注册回调
    * onReceiveMessage：收到消息回调
    */
-  static addListener({Function onConnect,Function onLogin,Function onRegister,Function onReceiveMessage}){
+  static addListener(
+      {Function onConnect,
+      Function onLogin,
+      Function onRegister,
+      Function onReceiveMessage}) {
     EventChannel eventChannel = EventChannel("flutter_xmpp/event");
     eventChannel.receiveBroadcastStream().listen((data) {
-        var event = data["event"];
-        if(event == "onConnect"){
-          onConnect(data);
-        }else if(event == "onMessage"){
-          onReceiveMessage(data);
-        }else if(event == "onLogin"){
-          onLogin(data);
-        }else if(event == "onRegister"){
-          onRegister(data);
-        }
+      var event = data["event"];
+      if (event == "onConnect") {
+        onConnect(data);
+      } else if (event == "onMessage") {
+        onReceiveMessage(data);
+      } else if (event == "onLogin") {
+        onLogin(data);
+      } else if (event == "onRegister") {
+        onRegister(data);
+      }
     });
   }
-
-
 }

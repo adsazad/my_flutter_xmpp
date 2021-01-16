@@ -130,7 +130,7 @@ public class FlutterXmppConnection implements ConnectionListener, IncomingChatMe
 //        conf.setUsernameAndPassword(mUsername,mPassword);
         conf.setResource(mResource);
         conf.setKeystoreType(null);
-        conf.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
+        conf.setSecurityMode(ConnectionConfiguration.SecurityMode.required);
         conf.setCompressionEnabled(true);
         mConnection = new XMPPTCPConnection(conf.build());
         mConnection.addConnectionListener(this);

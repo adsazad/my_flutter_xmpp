@@ -1,4 +1,4 @@
-name: flutter_xmpp_example
+name: my_flutter_xmpp_example
 description: Demonstrates how to use the flutter_xmpp plugin.
 
 # The following line prevents the package from being accidentally published to
@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_xmpp:
+  my_flutter_xmpp:
     # When depending on this package from a real application you should use:
     #   flutter_xmpp: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints

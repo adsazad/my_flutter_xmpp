@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_xmpp_plugin/flutter_xmpp_plugin.dart';
+import 'package:my_flutter_xmpp/my_flutter_xmpp.dart';
+
 void main() {
   const MethodChannel channel = MethodChannel('flutter_xmpp');
 

@@ -131,10 +131,10 @@
       "name": "my_flutter_xmpp",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-01-16T09:11:36.252786Z",
+  "generated": "2021-01-16T13:28:12.728322Z",
   "generator": "pub",
   "generatorVersion": "2.10.4"
 }

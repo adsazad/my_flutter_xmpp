@@ -1,7 +1,7 @@
-name: flutter_xmpp_plugin
-description: xmpp for openfire
-version: 1.0.0
-homepage: https://github.com/Elex92/flutter_xmpp.git
+name: my_flutter_xmpp
+description: xmpp for flutter
+version: 1.1.0
+homepage: https://github.com/adsazad/my_flutter_xmpp
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
