@@ -8,5 +8,14 @@
 
         </service>
 
+        <receiver android:name=".MyBroadcastReceiver" android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+<!--                <action android:name="com.elex.xmpp.flutter_xmpp.login" />-->
+                <action android:name="com.elex.xmpp.flutter_xmpp.connectStatus" />
+                <action android:name="com.sarabit.startxmpp" />
+                <action android:name="com.sarabit.xmpp.login" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
